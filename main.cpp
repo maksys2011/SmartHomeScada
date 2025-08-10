@@ -22,6 +22,8 @@ int main()
             }
     Actuator obj(config, false);
     obj.PrintInfo();
+    obj.TurnOn();
+    obj.PrintInfo();
         
     
     

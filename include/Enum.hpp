@@ -51,3 +51,10 @@ enum class ActuatorType                  // ТИПЫ МЕХАНИЗМОВ
     Display,                             // дисплей или индикатор
     Other                                // прочее устройство
 };
+enum class SensorStatus
+{
+    Ok,                                 // норма
+    Warning,                            // предупреждение
+    Error,                              // ошибка
+    Disconected                         // потеря связи
+};
