@@ -1,0 +1,3 @@
+C:/cpp_project/SmartHome/build/CMakeFiles/SmartHomeScada.dir
+C:/cpp_project/SmartHome/build/CMakeFiles/ALL_BUILD.dir
+C:/cpp_project/SmartHome/build/CMakeFiles/ZERO_CHECK.dir

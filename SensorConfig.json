@@ -1,0 +1,14 @@
+{
+    "id" : "#500",
+    "name" : "sensor",
+    "type" : "TemperatureSensor",
+    "ioAddress" : "ip",
+    "unit" : "°C",
+    "pollIntervalMs" : 1000,
+    "timeoutMs" : 1000,
+    "ttlMs" : 25,
+    "retries" : 3,
+    "backoffMs" : 100,
+    "minValue" : 0.0,
+    "maxValue" : 150.0
+}
