@@ -18,14 +18,15 @@ class SensorConfig                      // КОНФИГУРАЦИИ ДАТЧИК
                         // тайминиги и повтора
     int pollIntervalMs;                     // минимальный интервал между опросами
     int timeoutMs;                          // таймаут чтения (мс)
-    int ttlMs;                               // время актульности данных
+    int ttlMs;                              // время актульности данных
     int retries;                            // количество повторов чтения
     int backoffMs;                          // пауза между потворами
-
                         // аналоговые параметры
     std::optional<double>minValue;          // нижняя граница допустимых значений
     std::optional<double>maxValue;          // верхняя граница допустимых значений
     std::optional<double>deadband;          // мертвая зона (не реагировать на значение в пределах этой зоны)
+    std::optional<double>hysteresisPct;     // процент гистерезиса для аналоговых датчиков
+    std::optional<int>debounceCount;
 
                         // дискретные параметры
     std::optional<int>pulsesPerUnit;        // сколько импульсов соответствует единицы измерения
@@ -34,6 +35,13 @@ class SensorConfig                      // КОНФИГУРАЦИИ ДАТЧИК
                         // счетчики
     std::optional<int>debounceMs;    
     std::optional<bool>activeHigh;          // полярность входа
+                        // пороговые значение
+    std::optional<double>warnLow;               // нижняя граница предупреждения
+    std::optional<double>warnHigh;              // верхняя граница предупреждения
+    std::optional<double>alarmLow;              // нижняя граница аварии
+    std::optional<double>alarmHigh;             // верхняя граница аварии
+                        // гистерезис
+       
     
     public:
     
@@ -59,22 +67,24 @@ class SensorConfig                      // КОНФИГУРАЦИИ ДАТЧИК
 
     std::optional<double> getMaxValue() const;
        
-    void SetMinValue(double);
+    void setMinValue(double);
 
-    void SetMaxValue(double);
+    void setMaxValue(double);
 
-    void SetDeadband(double);
+    void setDeadband(double);
 
-    void SetDebounce(int);
+    void setDebounce(int);
 
-    void SetPulsesPerUnit(int);
+    void setPulsesPerUnit(int);
 
-    void SetRolloverValue(int);
+    void setRolloverValue(int);
 
-    void SetActiveHigh(bool);
+    void setActiveHigh(bool);
     
     friend std::ostream& operator<<(std::ostream& os, const SensorConfig& obj);
     
     const SensorConfig& operator=(SensorConfig& obj);
+
+    void validate();
 
 };

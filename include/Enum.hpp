@@ -14,6 +14,7 @@ enum class DeviceType                   // ТИПЫ ДАТЧИКОВ
     SmartLocks,                     	// умные замки
     OtherDevice                     	// иное устройство
 };
+
 enum class DeviceStatus                 // ПЕРЕЧИСЛЕНИЯ СТАТУСА УСТРОЙСТВ
 {
     Running,                            // в работе
@@ -21,6 +22,7 @@ enum class DeviceStatus                 // ПЕРЕЧИСЛЕНИЯ СТАТУС
     Error,                              // неисправность
     Default
 };
+
 enum class CommandStatus                // ПЕРЕЧИСЛЕНИЯ СТАТУСА ВЫПОЛНЕНИЯ КОМАНД             
 {
     Success,                            // все выполнилось
@@ -30,6 +32,7 @@ enum class CommandStatus                // ПЕРЕЧИСЛЕНИЯ СТАТУС
     Error,                              // ошибка
     Timeout                             // нет подтверждения за время n
 };
+
 enum class SensorType                   // ВИДЫ УСТРОЙСТВ
 {
     Analog,                              // аналоговое утройство
@@ -37,6 +40,7 @@ enum class SensorType                   // ВИДЫ УСТРОЙСТВ
     Counter,                             // счетчик
     Enum                                 // перечисление
 };
+
 enum class ActuatorType                  // ТИПЫ МЕХАНИЗМОВ
 {
     Relay,                               // реле
@@ -51,10 +55,18 @@ enum class ActuatorType                  // ТИПЫ МЕХАНИЗМОВ
     Display,                             // дисплей или индикатор
     Other                                // прочее устройство
 };
-enum class SensorStatus
+
+enum class Status                       // СТАТУС ДАТЧИКА
 {
     Ok,                                 // норма
     Warning,                            // предупреждение
     Error,                              // ошибка
     Disconected                         // потеря связи
 };
+
+enum class AlarmPolicy                  // ПОЛИТИКА ТРЕВОГ
+{
+    Struct,                             // строго по границам тревог
+    FivePctOverNorm                     // допускается выход на 5% диапазона сверх тревог 
+};
+

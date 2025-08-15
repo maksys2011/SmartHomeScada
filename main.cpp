@@ -14,7 +14,7 @@ int main()
     ActuatorConfig config;
         try{
                 config.fromJson(std::string("C:\\cpp_project\\SmartHome\\ActuatorConfig.json"));
-                config.Validate();
+                config.validate();
                 std::cout << "ActuatorConfig ok" << std::endl;
             }
             catch(const std::exception& e){

@@ -14,7 +14,7 @@ class Sensor
         std::variant<double, int, bool> currentValue;
         bool flagState;
         std::chrono::system_clock::time_point lastUpdate;
-        SensorStatus status;
+        Status status;
         std::vector<std::variant<double, int, bool>>historyValue;
     public:
         Sensor(SensorConfig& config, std::variant<double, int, bool>currentValue, bool flagState,
@@ -26,7 +26,7 @@ class Sensor
 
         const std::vector<std::variant<double, int, bool> GetHistoryValue();
 
-        const SensorStatus GetStatus();
+        const Status GetStatus();
 
         void SetStatus();
 

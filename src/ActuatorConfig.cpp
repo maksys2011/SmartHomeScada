@@ -48,7 +48,7 @@ void ActuatorConfig::fromJson(const std::string& path)
     fromJson(j);
 }
 
-void ActuatorConfig::Validate() const
+void ActuatorConfig::validate() const
 {
     if(id.empty()) throw std::runtime_error("id must not be empty");
     if(name.empty()) throw std::runtime_error("name must not be empty");

@@ -365,6 +365,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\cpp_project\SmartHome\src\ActuatorConfig.cpp" />
     <ClCompile Include="C:\cpp_project\SmartHome\src\EnumUtils.cpp" />
     <ClCompile Include="C:\cpp_project\SmartHome\src\SensorConfig.cpp" />
+    <ClCompile Include="C:\cpp_project\SmartHome\src\SensorState.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

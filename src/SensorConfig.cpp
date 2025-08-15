@@ -16,61 +16,19 @@ SensorConfig::SensorConfig(const std::string& id, const std::string& name, int p
         this->retries = retries;
         this->backoffMs = backoffMs;
     }
+
 void SensorConfig::fromJson(const json& file)
     {
         id = file.at("id").get<std::string>();
-        if(id.empty()) 
-            {
-                throw std::runtime_error("id must not be empty");
-            }
         name = file.at("name").get<std::string>();
-        if(name.empty())
-            {
-                throw std::runtime_error("name must not be empty");   
-            }
         type = StringToDeviceType(file.at("type").get<std::string>());
-        
         ioAddress = file.at("ioAddress").get<std::string>();
-        if(ioAddress.empty())
-            {
-                throw std::runtime_error("ioAddress must not be empty");
-            }
         unit = file.at("unit").get<std::string>();
-        if(unit.empty())
-            {
-                throw std::runtime_error("unit must not be empty");
-            }
-
         pollIntervalMs = file.at("pollIntervalMs").get<int>();
-            if(pollIntervalMs <= 0)
-            {
-                throw std::runtime_error("pollIntervalMs must not be > 0");
-            }
-        
         timeoutMs = file.at("timeoutMs").get<int>();
-            if(timeoutMs < 0)
-            {
-                throw std::runtime_error("timeoutMs must not be >= 0");
-            }
-        
-        ttlMs = file.at("ttlMs").get<int>();
-            if (ttlMs < 0)
-            {
-                throw std::runtime_error("ttlMs must not be >= 0");
-            }
-            
+        ttlMs = file.at("ttlMs").get<int>();    
         retries = file.at("retries").get<int>();
-            if(retries < 0)
-            {
-                throw std::runtime_error("retries must not be >= 0");
-            }
-
         backoffMs = file.at("backoffMs").get<int>();
-            if(backoffMs < 0)
-            {
-                throw std::runtime_error("backoffMs must not be >= 0");
-            }
-
         if(file.contains("minValue") && !file["minValue"].is_null())
             {
                 minValue = file.at("minValue").get<double>();
@@ -120,7 +78,9 @@ void SensorConfig::fromJson(const json& file)
                  activeHigh.reset();
             }
     } 
+
 void SensorConfig::fromJson(const std::string& path)
+
     {
         std::ifstream file(path);
         if(!file)
@@ -131,7 +91,8 @@ void SensorConfig::fromJson(const std::string& path)
         file >> j;
 
         fromJson(j);
-    }      
+    }   
+
 const void SensorConfig::printInfo()
 {
     std::cout << "id: " << getId()<< std::endl;
@@ -165,9 +126,81 @@ std::optional<double> SensorConfig::getMaxValue() const
     return maxValue;
 }
 
+void SensorConfig::setMinValue(double value)
+{
+    minValue = value;
+}
 
+void SensorConfig::setMaxValue(double value)
+{
+    maxValue = value;
+}
 
+void SensorConfig::setDeadband(double value)
+{
+    deadband = value;
+} 
 
+void SensorConfig::setDebounce(int value)
+{
+    debounceMs = value;
+}
+
+void SensorConfig::setPulsesPerUnit(int value)
+{
+    pulsesPerUnit = value;
+}
+
+void SensorConfig::setRolloverValue(int value)
+{
+    rolloverValue = value;
+}
+
+void SensorConfig::setActiveHigh(bool value)
+{
+    activeHigh = value;
+}
+
+void SensorConfig::validate()
+{
+        if(id.empty()) 
+            {
+                throw std::runtime_error("id must not be empty");
+            }
+        if(name.empty())
+            {
+                throw std::runtime_error("name must not be empty");   
+            }
+        if(ioAddress.empty())
+            {
+                throw std::runtime_error("ioAddress must not be empty");
+            }
+        if(unit.empty())
+            {
+                throw std::runtime_error("unit must not be empty");
+            }
+        if(pollIntervalMs <= 0)
+            {
+                throw std::runtime_error("pollIntervalMs must not be > 0");
+            }
+        if(timeoutMs < 0)
+            {
+                throw std::runtime_error("timeoutMs must not be >= 0");
+            }
+        if (ttlMs < 0)
+            {
+                throw std::runtime_error("ttlMs must not be >= 0");
+            }
+        if(retries < 0)
+            {
+                throw std::runtime_error("retries must not be >= 0");
+            }
+        if(backoffMs < 0)
+            {
+                throw std::runtime_error("backoffMs must not be >= 0");
+            }
+
+}
 
 
   

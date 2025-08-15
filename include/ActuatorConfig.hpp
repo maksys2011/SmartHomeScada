@@ -27,7 +27,7 @@ class ActuatorConfig                    //КОНФИГУРАЦИИ ИСПОЛН�
 
     void fromJson(const std::string& path);
 
-    void Validate() const;
+    void validate() const;
 
     const std::string& getId() const;
 

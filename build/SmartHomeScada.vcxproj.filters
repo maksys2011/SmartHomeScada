@@ -16,6 +16,9 @@
     <ClCompile Include="C:\cpp_project\SmartHome\src\SensorConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\cpp_project\SmartHome\src\SensorState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\cpp_project\SmartHome\CMakeLists.txt" />
