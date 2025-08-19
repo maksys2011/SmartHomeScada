@@ -11,19 +11,16 @@ using json = nlohmann::json;
 
 int main()
 {
-    ActuatorConfig config;
+    SensorConfig config;
         try{
-                config.fromJson(std::string("C:\\cpp_project\\SmartHome\\ActuatorConfig.json"));
+                config.fromJson(std::string("C:\\cpp_project\\SmartHome\\SensorConfig.json"));
                 config.validate();
-                std::cout << "ActuatorConfig ok" << std::endl;
+                std::cout << "SensorConfig ok" << std::endl;
             }
             catch(const std::exception& e){
-                std::cerr << "Config Error" << e.what() << std::endl;
+                std::cerr << "Config Error: " << e.what() << std::endl;
             }
-    Actuator obj(config, false);
-    obj.PrintInfo();
-    obj.TurnOn();
-    obj.PrintInfo();
+
         
     
     

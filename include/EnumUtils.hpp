@@ -14,3 +14,11 @@ DeviceStatus StringToDeviceStatus(const std::string& str);          // прео�
 std::string ActuatorTypeToString(ActuatorType type);                // преобразование ActuatorType в string
 
 ActuatorType StringToActuatorType(const std::string& str);          // преобразование string в ActuatorType
+
+DeviceClass classify(DeviceType);                                    // классификатор классов устройств
+
+std::string DeviceClassToString(DeviceClass cls);                    // преобразование в строку
+
+AlarmPolicy StringAlarmPolicy(const std::string& str);               // преоразование string в AlarmPolicy
+
+std::string AlarmPolicyToString(AlarmPolicy alarm_police);           // преоразование AlarmPolicy в string

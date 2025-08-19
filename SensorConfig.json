@@ -1,14 +1,15 @@
 {
-    "id" : "#500",
+    "id" : "5",
     "name" : "sensor",
-    "type" : "TemperatureSensor",
+    "type" : "MotionSensor",
     "ioAddress" : "ip",
     "unit" : "°C",
-    "pollIntervalMs" : 1000,
-    "timeoutMs" : 1000,
-    "ttlMs" : 25,
-    "retries" : 3,
-    "backoffMs" : 100,
-    "minValue" : 0.0,
-    "maxValue" : 150.0
+    "pollIntervalMs" : 101,
+    "timeoutMs" : 90,
+    "ttlMs" : 450,
+    "retries" : 9,
+    "backoffMs" : 60000,
+    "minValue" : 200.0,
+    "maxValue" : 150.0,
+    "alarm_policy" : "Struct"
 }

@@ -93,5 +93,64 @@ ActuatorType StringToActuatorType(const std::string& str)
     throw std::runtime_error("Unknown actuator type: " + str);
 }
 
+DeviceClass classify(DeviceType type)
+{
+    switch (type)
+    {
+    case DeviceType::LightSensor:
+    case DeviceType::TemperatureSensor:
+    case DeviceType::AirHumiditySensor:
+    case DeviceType::SmokeSensor:
+        return DeviceClass::Analog;
 
+    case DeviceType::MotionSensor:
+    case DeviceType::WaterPresenceSensor:
+        return DeviceClass::Binary;
+
+    case DeviceType::ElectricSwitch:
+    case DeviceType::SmartLocks:
+        return DeviceClass::Actuator;
+
+    case DeviceType::VideoCameras:
+        return DeviceClass::Camera;
+
+    case DeviceType::OtherDevice:
+        return DeviceClass::Unkown;
+    
+    default:
+        return DeviceClass::Unkown;
+    }
+
+}
+
+std::string DeviceClassToString(DeviceClass cls)
+{
+    switch (cls)
+    {
+    case DeviceClass::Analog: return "Analog";
+    case DeviceClass::Actuator: return "Actuator";
+    case DeviceClass::Binary: return "Binary";
+    case DeviceClass::Camera: return "Camera";
+    case DeviceClass::Counter: return "Counter";
+    case DeviceClass::Unkown: return "Unkown";
+    default: return " ";
+    }
+}
+
+AlarmPolicy StringAlarmPolicy(const std::string& str)
+{
+    if(str == "Struct") return AlarmPolicy::Strict;
+    else if(str == "FivePctOverNorm") return AlarmPolicy::FivePctOverNorm;
+    throw std::runtime_error("Unknown alarm policy: " + str);
+}
+
+std::string AlarmPolicyToString(AlarmPolicy alarm_police)
+{
+    switch (alarm_police)
+    {
+    case AlarmPolicy::Strict: return "Struct";
+    case AlarmPolicy::FivePctOverNorm: return "FivePctOverNorm";
+    default: return " ";
+    }
+}
 

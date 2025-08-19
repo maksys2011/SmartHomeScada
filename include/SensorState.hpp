@@ -2,33 +2,41 @@
 #include <optional>
 #include <chrono>
 #include <string>
+#include <variant>
+#include <cmath>
 #include "Enum.hpp"
+#include "SensorConfig.hpp"
 
 class SensorState
 {
     private:
+    using TimePoint = std::chrono::system_clock::time_point;
+    using Value = std::variant<int64_t, double, bool>;
 
     Status sensorStatus;                                        //  текущий статус датчика  
-    std::optional<double> lastValue;                            //  последнее полученное значение датчика
-    std::chrono::system_clock::time_point lastUpdateTime;       //  время последнего обновления
+    std::optional<Value> lastValue;                             //  последнее полученное значение датчика
+    TimePoint lastUpdateTime;                                   //  время последнего обновления
     std::optional<int> errorCode;                               //  код ошибки
     std::optional<std::string> errorMessage;                    //  описание ошибка для логов
     bool staleFlag;                                             //  флаг, что значение устарело
     bool qualityGood;                                           //  качество данных 
+    SensorConfig &config;                                       //  храним текущие конфигурации
 
     public:
 
-    SensorState() : sensorStatus(Status::Ok), 
-                    lastValue(std::nullopt), 
+    SensorState(SensorConfig config) : sensorStatus(Status::Ok), 
                     lastUpdateTime(std::chrono::system_clock::now()),
                     errorCode(std::nullopt), 
                     errorMessage(std::nullopt), 
                     staleFlag(false), 
-                    qualityGood(true){}
+                    qualityGood(true),
+                    config(config){}
     
     Status getStatus() const;
 
-    std::optional<double> getLastValue() const;
+    SensorConfig& getSensorConfig() const;
+
+    std::optional<Value> getLastValue() const;
 
     std::chrono::system_clock::time_point getLastUpdateTime() const; // момент последнего обновления
 
@@ -52,7 +60,13 @@ class SensorState
 
     void reset();                                                   // устанавливает настройки по умолчанию
 
-    void upDateValue(double, bool, std::chrono::system_clock::time_point);
+    void updateValue(int64_t v, bool qualityGood, TimePoint ts);         // для счетчиков
+
+    void updateValue(double v, bool qualityGood, TimePoint ts);      // для аналоговых устройств
+
+    void updateValue(bool v, bool qualityGood, TimePoint ts);        // для акуаторов
+
+
 
 
 

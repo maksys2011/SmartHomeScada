@@ -60,13 +60,23 @@ enum class Status                       // СТАТУС ДАТЧИКА
 {
     Ok,                                 // норма
     Warning,                            // предупреждение
-    Error,                              // ошибка
-    Disconected                         // потеря связи
+    Alarm,                              // авария
+    Invalid                             // потеря связи
 };
 
 enum class AlarmPolicy                  // ПОЛИТИКА ТРЕВОГ
 {
-    Struct,                             // строго по границам тревог
+    Strict,                             // строго по границам тревог
     FivePctOverNorm                     // допускается выход на 5% диапазона сверх тревог 
+};
+
+enum class DeviceClass                  // КЛАСС УСТРОЙСТВ
+{
+    Analog,
+    Binary,
+    Counter,
+    Actuator,
+    Camera, 
+    Unkown
 };
 
