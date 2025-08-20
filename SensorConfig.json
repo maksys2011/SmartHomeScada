@@ -1,7 +1,7 @@
 {
     "id" : "5",
     "name" : "sensor",
-    "type" : "MotionSensor",
+    "type" : "TemperatureSensor",
     "ioAddress" : "ip",
     "unit" : "°C",
     "pollIntervalMs" : 101,
@@ -9,7 +9,12 @@
     "ttlMs" : 450,
     "retries" : 9,
     "backoffMs" : 60000,
-    "minValue" : 200.0,
+    "minValue" : 0.0,
     "maxValue" : 150.0,
-    "alarm_policy" : "Struct"
+    "alarm_policy" : "Strict",
+    "warnLow" : 20,
+    "warnHigh" : 80,
+    "alarmLow" : 10,
+    "alarmHigh" : 90,
+    "hysteresisPct" : 0.10 
 }

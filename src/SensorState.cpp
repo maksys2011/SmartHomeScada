@@ -83,10 +83,10 @@ void SensorState::reset()
 }
 
 // Для аналоговых устройств
-void SensorState::updateValue(double value, bool isQualityGood, TimePoint ts)
+void SensorState::updateValue(double value, bool isQualityGood)
 {
     // Шаг 0 - перед записью обновляем время и ставим флаг устаревшего значения
-    lastUpdateTime = ts;
+    //lastUpdateTime = ts;
     staleFlag = false;
     // Шаг 1 - Проверка качества сигнала
     if(isQualityGood == false)
@@ -145,40 +145,49 @@ void SensorState::updateValue(double value, bool isQualityGood, TimePoint ts)
     // Шаг - 6 классификация статуса === WARN === ALARM === OK ===
 
     double warn_low = config.getWarnLow().value();
-    double warn_High = config.getWarnHigh().value();
+    double warn_high = config.getWarnHigh().value();
+    double alarm_low = config.getAlarmLow().value();
+    double alarm_high = config.getAlarmHigh().value();
     double histeresis_pct = config.getHisteresisPct().value();
-
-    const auto R = std::fabs(warn_High - warn_low);
-    const auto H = histeresis_pct * R;
-
+    const auto R = std::fabs(warn_high - warn_low);
+    const auto H = (histeresis_pct / 100.0) * R;
+    
+    std::cout << "входим к гетерезис" << std::endl;
+    // Шаг 6.1
     if(config.getAlarmPolicy() == AlarmPolicy::Strict)
     {
-        if(value <= warn_low)
+        if(value <= alarm_low) sensorStatus = Status::Alarm;
+        else if(value >= alarm_high) sensorStatus = Status::Alarm; // value = 79
+        else if (value <= warn_low) sensorStatus = Status::Warning;
+        else if(value >= warn_high) sensorStatus = Status::Warning;
+        else sensorStatus = Status::Ok;
+        
+        std::cout << "StTostring: " << StatusToString(sensorStatus) << std::endl;
+
+        auto prevStatus = sensorStatus;
+
+        if(prevStatus == Status::Warning)
+        {   
+            if(value <= alarm_low || value >= alarm_high) prevStatus = Status::Alarm;
+            else if(value > warn_low + H && value < warn_high - H) prevStatus = Status::Ok;
+            else prevStatus = Status::Warning;
+        }
+        if(prevStatus == Status::Alarm)
         {
-            if(value <= config.getAlarmLow().value())
+            if(value >= alarm_high || value <= alarm_low) prevStatus = Status::Alarm;
+            else if(value < alarm_high - H)
             {
-                sensorStatus = Status::Alarm;
+                if(value >= warn_high) prevStatus = Status::Warning;
+                else prevStatus = Status::Ok;
             }
-            else
+            else if(value > alarm_low + H)
             {
-                sensorStatus = Status::Warning;
+                if(value <= warn_low) prevStatus = Status::Warning;
+                else prevStatus = Status::Ok;
             }
         }
-        else if(value >= warn_High)
-        {
-            if(value >= config.getAlarmHigh().value())
-            {
-                sensorStatus = Status::Alarm;
-            }
-            else
-            {
-                sensorStatus = Status::Warning;
-            }
-        }
-        else
-        {
-        sensorStatus = Status::Ok;
-        }
+        sensorStatus = prevStatus;
+        
     }
     
 }
@@ -195,15 +204,7 @@ void SensorState::updateValue(double value, bool isQualityGood, TimePoint ts)
 
 
 
-
-
-
-
-void SensorState::updateValue(int64_t v, bool qualityGood, TimePoint ts)
+void SensorState::printInfoState() const
 {
-
-}    
-void SensorState::updateValue(bool v, bool qualityGood, TimePoint ts)
-{
-
-}  
+    std::cout << StatusToString(sensorStatus) << std::endl;
+}

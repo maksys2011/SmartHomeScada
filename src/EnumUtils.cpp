@@ -154,3 +154,14 @@ std::string AlarmPolicyToString(AlarmPolicy alarm_police)
     }
 }
 
+std::string StatusToString(Status st)
+{
+    switch (st)
+    {
+    case Status::Alarm: return "Alarm";
+    case Status::Invalid: return "Invalid";
+    case Status::Ok: return "Ok";
+    case Status::Warning: return "Warning";
+    default: return " ";
+    }
+}

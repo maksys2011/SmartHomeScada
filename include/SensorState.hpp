@@ -60,11 +60,13 @@ class SensorState
 
     void reset();                                                   // устанавливает настройки по умолчанию
 
-    void updateValue(int64_t v, bool qualityGood, TimePoint ts);         // для счетчиков
+    void updateValue(int64_t v, bool qualityGood);         // для счетчиков
 
-    void updateValue(double v, bool qualityGood, TimePoint ts);      // для аналоговых устройств
+    void updateValue(double v, bool qualityGood);      // для аналоговых устройств
 
-    void updateValue(bool v, bool qualityGood, TimePoint ts);        // для акуаторов
+    void updateValue(bool v, bool qualityGood);        // для акуаторов
+
+    void printInfoState() const;
 
 
 

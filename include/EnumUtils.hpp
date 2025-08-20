@@ -22,3 +22,5 @@ std::string DeviceClassToString(DeviceClass cls);                    // прео
 AlarmPolicy StringAlarmPolicy(const std::string& str);               // преоразование string в AlarmPolicy
 
 std::string AlarmPolicyToString(AlarmPolicy alarm_police);           // преоразование AlarmPolicy в string
+
+std::string StatusToString(Status st);
